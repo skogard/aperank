@@ -42,6 +42,7 @@ class Server {
       }, (err, doc) => {
         this.transformImage(doc)
         res.render("token", {
+          tweet: "https://aperank.offbase.org/token/" + doc.rank,
           ratio: ratio,
           stats: stats,
           item: doc

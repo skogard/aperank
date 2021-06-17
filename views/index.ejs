@@ -1,0 +1,298 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  background: rgba(0,0,0,0.9);
+}
+nav {
+  color: white;
+  padding: 50px;
+  text-align: center;
+}
+.stretch {
+  flex-grow: 1;
+}
+nav h1 {
+  padding: 10px;
+}
+nav h1 a {
+  display: block;
+}
+h1,h2, .title {
+/*
+  text-transform: uppercase;
+  */
+  font-family: Georgia;
+  /*
+  font-family: "Montserrat", sans-serif;
+  */
+  font-style: italic;
+  font-weight: 900;
+  padding: 10px 0;
+  margin: 0;
+  /*
+  color: #bfc500;
+  */
+  color: white;
+  font-weight: bold;
+  font-size: 35px;
+  display: inline-block;
+}
+.score {
+  font-size: 15px;
+  color: #bfc500;
+  padding: 5px 0;
+  font-family: Menlo, monaco, courier, monospace;
+}
+.score.large {
+  font-weight: 900;
+  font-size: 30px;
+  font-family: Georgia;
+  font-style: italic;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+}
+.editor {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 10px;
+}
+#query {
+  background: #bfc500;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  margin: 10px 0 0;
+  border: none;
+  color: black;
+  border-radius: 4px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: bold;
+}
+.container {
+  max-width: 800px;
+  margin: 10px auto;
+  box-sizing: border-box;
+  flex-grow: 1;
+  /*
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: masonry;
+  */
+}
+.roww {
+/*
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  */
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.row {
+  padding: 0 10px;
+}
+/*
+.row {
+  display: flex;
+  align-items: flex-start;
+}
+*/
+.row img {
+  width: 100px;
+  border-radius: 50px;
+  margin-right: 20px;
+}
+.row .col {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+a.tx {
+  color: white;
+  display: block;
+  padding: 5px;
+}
+td {
+  padding: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  color: white;
+  vertical-align: top;
+  font-family: Menlo, monaco, courier, monospace;
+}
+tr:hover td {
+  background: #bfc500;
+  color: black;
+}
+pre {
+  white-space: pre-wrap;
+  font-size: 12px;
+}
+img.logo {
+  width: 200px;
+}
+.buttons {
+  padding: 20px;
+}
+.buttons a {
+  background: rgba(255,255,255,0.1);
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 10px;
+  font-weight: 900;
+  display: inline-block;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+form#search {
+  display: flex;
+  padding: 10px;
+  box-sizing: border-box;
+}
+input[type=number] {
+  padding: 10px;
+  font-size: 15px;
+  flex-grow: 1;
+  border: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+input[type=submit] {
+  padding: 10px 20px;
+  background: #bfc500;
+  border: none;
+  color: rgba(0,0,0,0.6);
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+.highlight {
+  background: rgba(255,255,255,0.1);
+}
+.rank {
+/*
+  display: flex;
+  text-align: right;
+  padding: 10px;
+  border-left: 5px solid white;
+  */
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.stretch {
+  flex-grow: 1;
+}
+.hidden {
+  display: none;
+}
+.lds-dual-ring {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.cap {
+  font-family: Menlo, monaco, courier, monospace;
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
+<script>
+var page = 0;
+var ended = false;
+var loading = false;
+const next = async () => {
+  if (!ended) {
+    loading = true;
+    let res = await fetch("/?&page=" + (++page)).then((res) => {
+      return res.text()
+    })
+    loading = false;
+    if (res.trim().length === 0) {
+      ended = true;
+    } else {
+      document.querySelector(".container").insertAdjacentHTML("beforeend", res)
+    }
+  }
+}
+window.addEventListener('scroll', () => {
+  if(!loading && window.innerHeight+window.scrollY>=document.body.offsetHeight-200) next()
+});
+</script>
+</head>
+<body>
+<nav>
+  <h1><a href="/"><img loading='lazy' class='logo' src="bayc.png"><div>ApeRank</div></a></h1>
+  <div class='cap'>Do you even know how rare you are?</div>
+  <div class='stretch'></div>
+  <div class='buttons'>
+    <a href="https://github.com/skogard/aperank">How does this work?</a>
+    <a href="https://twitter.com/skogard">Twitter</a>
+  </div>
+</nav>
+<div class='flex'>
+<div class='container'>
+  <form id='search'>
+    <input type='number' placeholder="enter tokenId to search an ape (example: 420)">
+    <input type='submit' value='search'>
+  </form>
+  <%- include('partial.ejs') %>
+</div>
+</div>
+<script>
+var lazyLoadInstance = new LazyLoad({ });
+var id;
+document.querySelector("form#search").addEventListener("submit", (e) => {
+  e.preventDefault()
+  e.stopPropagation()
+  let val = e.target.querySelector("input[type=number]").value.trim()
+  location.href = "/token/" + val
+})
+document.addEventListener("click", (e) => {
+  if (e.target.id === "query") {
+    location.href = "/?filter=" + encodeURIComponent(val)
+  } else {
+    let closest = e.target.closest("tr")
+    if (closest) {
+      let attr = closest.getAttribute("data-attr")
+      if (attr) {
+        let a = JSON.parse(attr)
+        let query = { "metadata.attributes": { $elemMatch: a } }
+        let existingQuery = { $and: [query] }
+        let queryStr = JSON.stringify(existingQuery, null, 2)
+        location.href = "https://ape.offbase.org/?filter=" + encodeURIComponent(queryStr)
+      }
+    }
+  }
+})
+</script>
+</body>
+</html>

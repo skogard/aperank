@@ -1,0 +1,26 @@
+<% items.forEach((item) => { %>
+  <div class='roww' id='ape_<%=item.id%>' href="/token/<%=item.id%>">
+    <div class='rank'>
+      <div class='large score'>Rank #<%=item.rank%></div>
+      <div class='score'>Rare Factor: <%=Math.floor(item.calculated * 10000)/10000%></div>
+    </div>
+    <div class='row'>
+      <div class='col'>
+        <img src="/ipfs/<%=item.metadata.image.slice(6)%>">
+        <a class='title' href="/token/<%=item.id%>">Ape <%=item.id%></a>
+      </div>
+      <% if (item.metadata.attributes) { %>
+        <table>
+        <% [...item.metadata.attributes].sort((a, b) => { return a.trait_type > b.trait_type  ? 1 : -1 }).forEach((attr) => { %>
+          <tr data-attr="<%=JSON.stringify(attr)%>">
+            <td><%=attr.trait_type%></td>
+            <td><%=attr.value%></td>
+            <td><%=Math.ceil(ratio[attr.trait_type][attr.value]*10000)/100%>%</td>
+            <td>(<%=stats[attr.trait_type][attr.value]%> of 10,000)</td>
+          </tr>
+        <% }) %>
+        </table>
+      <% } %>
+    </div>
+  </div>
+<% }) %>

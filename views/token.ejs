@@ -1,16 +1,16 @@
 <html>
 <head>
-<title>Apebase</title>
+<title>ApeRank</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Ape <%=item.id%>" />
-<meta name="twitter:description" content="Bored Ape Database" />
-<meta name="twitter:image" content="https://ipfs.io/ipfs/<%=item.metadata.image%>" />
-<meta property="og:url" content="https://ape.offbase.org" />
+<meta name="twitter:title" content="Rank #<%=item.rank%>" />
+<meta name="twitter:description" content="Bored Ape <%=item.id%> (Rare factor <%=Math.floor(item.calculated*10000)/10000%>)" />
+<meta name="twitter:image" content="https://ipfs.io<%=item.metadata.image%>" />
+<meta property="og:url" content="https://aperank.offbase.org" />
 <meta property="og:type"   content="website" />
-<meta property="og:title" content="Ape <%=item.id%>" />
-<meta property="og:description" content="Bored Ape Database" />
-<meta property="og:image" content="https://ipfs.io/ipfs/<%=item.metadata.image%>" />
+<meta property="og:title" content="Rank #<%=item.rank%>" />
+<meta property="og:description" content="Bored Ape <%=item.id%> (Rare factor <%=Math.floor(item.calculated*10000)/10000%>)" />
+<meta property="og:image" content="https://ipfs.io<%=item.metadata.image%>" />
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;1,600;1,900&display=swap" rel="stylesheet">
 <style>

@@ -4,6 +4,8 @@
 
 Rank Bored Apes by rare factor, powered by [Apebase](https://ape.offbase.org).
 
+![aperank](public/aperank.png)
+
 # How it works
 
 ApeRank ranks [Bored Ape Yacht Club](https://boredapeyachtclub.com/) apes based on their metadata attributes. More specifically, based on how their attributes are.

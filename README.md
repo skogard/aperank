@@ -72,6 +72,7 @@ Then we calculate the rare factor by:
 4. Calculate the total rare factor by multiplying all attribute ratio for each ape.
 5. Rank the apes based on the rare factor
 
+You can find the source code at [build.js](build.js). Feel free to open an issue if there's a bug or the algorithm needs improvement.
 
 # Run it yourself
 

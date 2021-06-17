@@ -12,6 +12,8 @@ It's powered by [Apebase](https://ape.offbase.org).
 
 # Rank Algorithm
 
+> NOTICE: This project is an experiment. If you find an error in the algorithm, please open an issue: https://github.com/skogard/aperank/issues
+
 Here are the number of apes that have each attribute:
 
 ```
